@@ -47,13 +47,13 @@ const Table: FC = () => {
     const { languageCode } = useContext(AppContext);
 
     const TABLE_HEAD: ITableHeadCell[] = [
-        { id: 'rank', label: '#', allowSort: false },
-        { id: 'name', label: languages[languageCode].tableCoins.name, allowSort: false },
-        { id: 'price', label: languages[languageCode].tableCoins.price, allowSort: true },
-        { id: 'change', label: languages[languageCode].tableCoins.change, allowSort: true },
-        { id: '24hVolume', label: languages[languageCode].tableCoins.volumn, allowSort: true },
-        { id: 'marketCap', label: languages[languageCode].tableCoins.cap, allowSort: true },
-        { id: 'chart', label: languages[languageCode].tableCoins.chart, allowSort: false },
+        { id: 'rank', label: '#', allowSort: false, allowScroll: false },
+        { id: 'name', label: languages[languageCode].tableCoins.name, allowSort: false, allowScroll: false },
+        { id: 'price', label: languages[languageCode].tableCoins.price, allowSort: true, allowScroll: true },
+        { id: 'change', label: languages[languageCode].tableCoins.change, allowSort: true, allowScroll: true },
+        { id: '24hVolume', label: languages[languageCode].tableCoins.volumn, allowSort: true, allowScroll: true },
+        { id: 'marketCap', label: languages[languageCode].tableCoins.cap, allowSort: true, allowScroll: true },
+        { id: 'chart', label: languages[languageCode].tableCoins.chart, allowSort: false, allowScroll: true },
     ];
 
     useEffect(() => {
@@ -108,27 +108,29 @@ const Table: FC = () => {
     }
 
     return (
-        <div className='container max-w-screen-xl mx-auto shadow-lg bg-gray-50 dark:bg-gray-800 rounded-md py-5'>
-            <div className="flex justify-start px-7 py-5">
-                <SearchInput value={data.keyword} onSearch={handleChangeKeyword} onReset={handleReset} />
+        <div className='p-4 sm:p-5'>
+            <div className='shadow-lg bg-gray-50 dark:bg-gray-800 rounded-md py-7'>
+                <div className="flex justify-start px-7 pb-5">
+                    <SearchInput value={data.keyword} onSearch={handleChangeKeyword} onReset={handleReset} />
+                </div>
+                <div className='block overflow-x-scroll md:overflow-x-auto'>
+                    <table id="coins" className='border-collapse w-full'>
+                        <TableHead onRequestSort={handleRequestSort} order={data.order} headCells={TABLE_HEAD} orderBy={data.orderBy} />
+                        <tbody>
+                            {loading ? range(1, 10).map((_, index) => {
+                                return <RowSkeletion key={index} />
+                            }) : data && data.coins.length ? data.coins.map((coin: ICoin) => {
+                                return <Row key={coin.uuid} coin={coin} />
+                            }) : null
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="flex justify-center items-center">
+                    {!loading && data && data.coins && !data.coins.length ? <NoResults onReset={handleReset} keyword={data.keyword} /> : null}
+                </div>
             </div>
-            <div className='flex justify-center items-center'>
-                <table id="coins" className='border-collapse w-full'>
-                    <TableHead onRequestSort={handleRequestSort} order={data.order} headCells={TABLE_HEAD} orderBy={data.orderBy} />
-                    <tbody>
-                        {loading ? range(1, 10).map((_, index) => {
-                            return <RowSkeletion key={index} />
-                        }) : data && data.coins.length ? data.coins.map((coin: ICoin) => {
-                            return <Row key={coin.uuid} coin={coin} />
-                        }) : null
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div className="flex justify-center items-center">
-                {!loading && data && data.coins && !data.coins.length ? <NoResults onReset={handleReset} keyword={data.keyword} /> : null}
-            </div>
-            <div className='flex justify-end p-4'>
+            <div className='flex justify-center md:justify-end py-4 overflow-hidden'>
                 {data && data.total > limit && <Pagination
                     count={Math.ceil(data.total / limit)}
                     page={data.page}

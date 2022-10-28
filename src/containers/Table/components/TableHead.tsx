@@ -18,13 +18,14 @@ const TableHead: FC<ITableHeadProps> = ({ order, orderBy, headCells, onRequestSo
     return (
         <thead>
             <tr>
-                {headCells.map((cell) => {
+                {headCells.map((cell, index) => {
                     return <TableCell
                         key={cell.id}
                         id={cell.id}
                         label={cell.label}
                         active={orderBy === cell.id}
                         allowSort={cell.allowSort}
+                        className={index === 0 ? "sticky left-0 z-20 min-w-9" : index === 1 ? "sticky left-9 z-20" : ""}
                         direction={orderBy === cell.id ? order : 'asc'}
                         onHandleClick={handleClick}
                     />

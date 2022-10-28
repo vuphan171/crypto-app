@@ -5,6 +5,7 @@ interface ITableCellProps {
     label: string;
     active: boolean;
     allowSort: boolean;
+    className: string;
     direction: "asc" | "desc",
     onHandleClick: (id: string, direction: "asc" | "desc") => void;
 }
@@ -18,14 +19,14 @@ function areEqual(prevProps: ITableCellProps, nextProps: ITableCellProps) {
     return prevProps.active === nextProps.active && prevProps.direction === nextProps.direction && prevProps.label === nextProps.label;
 }
 
-const TableCell: FC<ITableCellProps> = memo(({ id, label, active = false, allowSort = false, direction = "asc", onHandleClick }) => {
+const TableCell: FC<ITableCellProps> = memo(({ id, label, active = false, allowSort = false, className, direction = "asc", onHandleClick }) => {
 
     const handleClick = () => {
         onHandleClick(id, direction);
     }
 
     return (
-        <th className='text-left dark:text-white'>
+        <th className={`${className} text-left text-sm md:text-base dark:text-white bg-gray-50 dark:bg-gray-800`}>
             {allowSort ? <button onClick={handleClick} className="flex items-center">
                 {label}
                 {active && <div className="flex-col flex ml-1">

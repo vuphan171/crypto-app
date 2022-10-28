@@ -39,13 +39,13 @@ const Table: FC = () => {
     const { languageCode } = useContext(AppContext);
 
     const TABLE_HEAD: ITableHeadCell[] = [
-        { id: 'rank', label: '#', allowSort: false },
-        { id: 'name', label: languages[languageCode].tableCoins.name, allowSort: false },
-        { id: 'price', label: languages[languageCode].tableCoins.price, allowSort: true },
-        { id: 'change', label: languages[languageCode].tableCoins.change, allowSort: true },
-        { id: '24hVolume', label: languages[languageCode].tableCoins.volumn, allowSort: true },
-        { id: 'marketCap', label: languages[languageCode].tableCoins.cap, allowSort: true },
-        { id: 'chart', label: languages[languageCode].tableCoins.chart, allowSort: false },
+        { id: 'rank', label: '#', allowSort: false, allowScroll: false },
+        { id: 'name', label: languages[languageCode].tableCoins.name, allowSort: false, allowScroll: false },
+        { id: 'price', label: languages[languageCode].tableCoins.price, allowSort: true, allowScroll: true },
+        { id: 'change', label: languages[languageCode].tableCoins.change, allowSort: true, allowScroll: true },
+        { id: '24hVolume', label: languages[languageCode].tableCoins.volumn, allowSort: true, allowScroll: true },
+        { id: 'marketCap', label: languages[languageCode].tableCoins.cap, allowSort: true, allowScroll: true },
+        { id: 'chart', label: languages[languageCode].tableCoins.chart, allowSort: false, allowScroll: true },
     ];
 
     useEffect(() => {

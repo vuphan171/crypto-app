@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import _debounce from 'lodash/debounce';
 
 interface ISearchInputProps {
@@ -10,6 +10,12 @@ interface ISearchInputProps {
 const SearchInput: FC<ISearchInputProps> = ({ value, onSearch, onReset }) => {
 
     const [keyword, setKeyword] = useState(value);
+
+    useEffect(() => {
+        if(value === ''){
+            setKeyword(value);
+        }
+    },[value])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
@@ -30,7 +36,7 @@ const SearchInput: FC<ISearchInputProps> = ({ value, onSearch, onReset }) => {
     }
 
     return (
-        <form className="flex items-center w-1/3">
+        <form className="flex items-center md:w-1/3">
             <label htmlFor="simple-search" className="sr-only">Search</label>
             <div className="relative w-full">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

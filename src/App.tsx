@@ -1,7 +1,7 @@
-import { createContext, useState, useEffect } from 'react';
-import Main from './containers/main';
-import useLocalStorage from './hooks/useLocalStorage';
+import { createContext, useEffect, useState } from 'react';
 import { languages } from './config';
+import useLocalStorage from './hooks/useLocalStorage';
+import PublicRoutes from './routes/PublicRoutes';
 import "./scss/index.scss";
 
 export type LanguageCodes = "en" | "vi";
@@ -61,7 +61,7 @@ function App() {
 				setLanguageCode: handleLanguageCode, 
 				setDarkMode: handleDarkMode
 			}}>
-				<Main />
+				<PublicRoutes />
 			</AppContext.Provider>
 		</div>
 	);

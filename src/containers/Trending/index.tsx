@@ -1,16 +1,15 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
-import { useEffect, useState, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Autoplay } from "swiper";
 import 'swiper/css';
-import TrendingCoinCard from './components/TrendingCoinCard';
+import { AppContext } from '../../App';
+import { languages } from '../../config';
 import ICoin from '../../interfaces/Coin';
 import { getCoinsApi } from '../../services/CoinService';
+import TrendingCoinCard from './components/TrendingCoinCard';
 import TrendingCoinCardSkeleton from './components/TrendingCoinCardSkeleton';
-import { languages, screens } from '../../config';
-import { AppContext } from '../../App';
-import useMediaQuery from '../../hooks/useMediaQuery';
 
 
 const limit: number = 10;
@@ -21,15 +20,9 @@ const Trending = () => {
 
     const [data, setData] = useState<ICoin[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    
-    const lgDevice = useMediaQuery(`(min-width: ${screens.lg})`);
-
+ 
     const { languageCode } = useContext(AppContext);
     
-
-    console.log(lgDevice);
-
-
     useEffect(() => {
         setLoading(true);
         getCoinsApi(page, limit, orderBy).then(resp => {
@@ -44,18 +37,29 @@ const Trending = () => {
 
 
     return (
-        <div className="container max-w-screen-xl mx-auto mb-10">
+        <div className="mb-10 p-4 sm:p-5">
             <div className='mb-5'>
                 <h2 className='text-2xl font-bold dark:text-white'>{languages[languageCode].trendingLable}</h2>
             </div>
-            <div>
+            <div className='block'>
                 <Swiper
                     spaceBetween={20}
-                    slidesPerView={4}
+                    slidesPerView={1}
                     loop={true}
                     autoplay={{
                         delay: 2500,
                         disableOnInteraction: false,
+                    }}
+                    breakpoints={{
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        1024: {
+                            slidesPerView: 4
+                        }
                     }}
                     modules={[Autoplay]}
                 >

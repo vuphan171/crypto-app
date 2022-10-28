@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { ReactComponent as DarkLogo } from '../../images/dark-logo.svg';
 import { ReactComponent as LightLogo } from '../../images/light-logo.svg';
+import { ReactComponent as MobileLightLogo } from '../../images/mobile-light-logo.svg';
+import { ReactComponent as MobileDarkLogo } from '../../images/mobile-dark-logo.svg';
 import { AppContext, LanguageCodes } from '../../App';
 import { languages } from '../../config';
 
@@ -20,11 +22,14 @@ const Header = () => {
 
     return (
         <div className='fixed top-0 left-0 right-0 bg-gray-50 dark:bg-gray-800 z-50'>
-            <div className='flex justify-between items-center container max-w-screen-xl mx-auto p-5'>
-                <div>
+            <div className='flex justify-between items-center container max-w-screen-xl mx-auto p-4 sm:p-5'>
+                <div className='hidden sm:block'>
                     {isDarkMode ? <DarkLogo /> : <LightLogo />}
                 </div>
-                <div className='grid grid-cols-2 items-center divide-x'>
+                <div className='block sm:hidden'>
+                    {isDarkMode ? <MobileDarkLogo /> : <MobileLightLogo />}
+                </div>
+                <div className='flex items-center divide-x'>
                     <div className='pr-1'>
                         <button onClick={changeLanguageCode} className='dark:bg-gray-800 cursor-pointer outline-none border-none px-2 py-1 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 bg-gray-50'>
                             <span className='font-medium dark:text-white'>
