@@ -9,7 +9,7 @@ interface ITrendingCoinCardProps {
 
 const TrendingCoinCard : FC<ITrendingCoinCardProps> = ({coin}) => {
     return (
-        <div className="bg-gray-50 dark:bg-gray-800 p-4 border-r-4 rounded-md">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
             <div className='flex justify-between items-center'>
                 <img src={coin.iconUrl} width={32} height={32} alt="Arand" />
                 <Sparklines svgWidth={140} svgHeight={40} data={coin.sparkline}>

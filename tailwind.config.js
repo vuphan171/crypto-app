@@ -9,6 +9,6 @@ module.exports = {
   darkMode: 'class',
   plugins: [],
   corePlugins: {
-    preflight: false,
+    preflight: true,
   }
 }

@@ -9,7 +9,7 @@ const Main: FC = () => {
     return (
         <div>
             <Header />
-            <div className="bg-gray-200 dark:bg-gray-900 min-h-screen min-w-full pt-24">
+            <div className="bg-gray-200 dark:bg-gray-900 min-h-screen min-w-full pt-24 pb-24">
                 <Trending />
                 <Table />
             </div>

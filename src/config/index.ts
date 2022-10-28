@@ -1,11 +1,4 @@
-const enviroment = {
-    apiKey: "coinrankingb03c52a1db5956a968c09622bb44895801a1692d9d94ff97"
-};
-
-export default enviroment;
-
-
-export const languages = {
+const languages = {
     en: {
         code: "en",
         trendingLable: "Top Movers",
@@ -31,3 +24,13 @@ export const languages = {
         }
     }
 }
+
+const screens = {
+    'sm': '640px',
+    'md': '768px',
+    'lg': '1024px',
+    'xl': '1280px',
+    '2xl': '1536px',
+};
+
+export { screens, languages };
