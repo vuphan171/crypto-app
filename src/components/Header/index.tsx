@@ -1,32 +1,41 @@
 import { useContext } from 'react';
-import { ReactComponent as DarkLogo } from '../../images/dark-logo.svg';
-import { ReactComponent as LightLogo } from '../../images/light-logo.svg';
-import { ReactComponent as MobileLightLogo } from '../../images/mobile-light-logo.svg';
-import { ReactComponent as MobileDarkLogo } from '../../images/mobile-dark-logo.svg';
+import {
+    useNavigate
+} from "react-router-dom";
 import { AppContext, LanguageCodes } from '../../App';
 import { languages } from '../../config';
+import { ReactComponent as DarkLogo } from '../../images/dark-logo.svg';
+import { ReactComponent as LightLogo } from '../../images/light-logo.svg';
+import { ReactComponent as MobileDarkLogo } from '../../images/mobile-dark-logo.svg';
+import { ReactComponent as MobileLightLogo } from '../../images/mobile-light-logo.svg';
 
 const Header = () => {
+
+    const navigate = useNavigate();
 
     const { setDarkMode, setLanguageCode, isDarkMode, languageCode } = useContext(AppContext);
 
     const toggleMode = () => {
         let mode = !isDarkMode;
         setDarkMode(mode);
-    }
+    };
 
     const changeLanguageCode = () => {
         let code = (languageCode === languages.en.code) ? languages.vi.code : languages.en.code;
         setLanguageCode(code as LanguageCodes);
-    }
+    };
+
+    const handleNavigateHome = () => {
+        navigate("/");
+    };
 
     return (
         <div className='fixed top-0 left-0 right-0 bg-gray-50 dark:bg-gray-800 z-50'>
             <div className='flex justify-between items-center container max-w-screen-xl mx-auto p-4 sm:p-5'>
-                <div className='hidden sm:block'>
+                <div className='hidden cursor-pointer sm:block' onClick={handleNavigateHome}>
                     {isDarkMode ? <DarkLogo /> : <LightLogo />}
                 </div>
-                <div className='block sm:hidden'>
+                <div className='block cursor-pointer sm:hidden' onClick={handleNavigateHome}>
                     {isDarkMode ? <MobileDarkLogo /> : <MobileLightLogo />}
                 </div>
                 <div className='flex items-center divide-x'>

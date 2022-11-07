@@ -3,6 +3,7 @@ import { Sparklines, SparklinesLine } from 'react-sparklines';
 import ICoin from '../../../interfaces/Coin';
 import { formatCurrency, isPositiveChange } from '../../../utils';
 import "../main.scss";
+import { useNavigate } from 'react-router-dom';
 
 interface IRowProps {
     coin: ICoin;
@@ -10,7 +11,13 @@ interface IRowProps {
 
 const Row: FC<IRowProps> = memo(({ coin }) => {
 
-    return <tr className="dark:hover:bg-gray-700 hover:bg-blue-50 cursor-pointer">
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/coin/${coin.uuid}`);
+    };
+
+    return <tr onClick={handleClick} className="dark:hover:bg-gray-700 hover:bg-blue-50 cursor-pointer">
         <th className='sticky left-0 z-20 min-w-9 p-0 bg-gray-50 dark:bg-gray-800'>
             <span className='text-sm md:text-base dark:text-white'>{coin.rank}</span>
         </th>
@@ -21,7 +28,7 @@ const Row: FC<IRowProps> = memo(({ coin }) => {
                 </div>
                 <div className="ml-2">
                     <p className='text-sm md:text-base font-medium m-0 dark:text-white'>{coin.name}</p>
-                    <p className='text-sm md:text-base font-medium m-0 text-gray-400 '>{coin.symbol}</p>
+                    <p className='text-sm md:text-base font-medium m-0 text-gray-400'>{coin.symbol}</p>
                 </div>
             </div>
         </td>
